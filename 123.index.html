@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday,Ain!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FEE6F8;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Chewy', cursive, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #87CEFA, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid transparent;
+            display: inline-block;
+        }
+
+        p {
+            color: #4B0082;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 10px 0;
+            opacity: 1;
+        }
+
+        #locked-message {
+            font-size: 2rem;
+            color: #87CEFA;
+            font-weight: bold;
+        }
+
+        /* 气球动画 */
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: floatUp 12s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-120vh); }
+        }
+
+        /* 烟花动画 */
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out;
+        }
+
+        @keyframes explode {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(5); opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="locked-message">00000000</div>
+    
+    <div id="birthday-content" style="display: none;">
+        <h1 id="typing-title"></h1>
+        <p>May your birthday be filled with endless happiness, today you are the brightest star!(๑＞ڡ＜)</</p>
+        <p>May your smile shine brighter than the sun, with every day filled with surprises and joy!(〃'▽'〃)🎉🎈</p>
+        <p>May today be as special as you are! 😆😆😆</p>
+        <p>Happy Birthday~~~~!!!!😆😆😆</p>
+        <p>⁄(⁄⁄•⁄ω⁄•⁄⁄)⁄</p>
+        
+    </div>
+
+    <script>
+        const birthdayDate = new Date(new Date().getFullYear(), 2, 15, 12, 0, 0).getTime();
+        const now = new Date().getTime();
+
+        if (now >= birthdayDate) {
+            document.getElementById("locked-message").style.display = "none";
+            document.getElementById("birthday-content").style.display = "block";
+            launchFireworks();
+            createBalloons();
+            startTypingAnimation();
+        }
+
+        function startTypingAnimation() {
+            const titleText = "Happy Birthday,Ain! 🎉";
+            let i = 0;
+            let titleElement = document.getElementById("typing-title");
+            function typeCharacter() {
+                if (i < titleText.length) {
+                    titleElement.innerHTML += titleText.charAt(i);
+                    i++;
+                    setTimeout(typeCharacter, 100);
+                }
+            }
+            typeCharacter();
+        }
+
+        function createBalloons() {
+            for (let i = 0; i < 10; i++) {
+                let balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.style.left = Math.random() * 100 + "vw";
+                balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                balloon.style.animationDuration = (Math.random() * 2 + 10) + "s"; 
+
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 12000);
+            }
+        }
+
+        function launchFireworks() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    let firework = document.createElement("div");
+                    firework.className = "firework";
+                    firework.style.left = Math.random() * 100 + "vw";
+                    firework.style.top = Math.random() * 100 + "vh";
+                    firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    document.body.appendChild(firework);
+                    setTimeout(() => firework.remove(), 1500);
+                }, i * 200);
+            }
+        }
+    </script>
+</body>
+</html>
